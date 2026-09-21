@@ -1,0 +1,7 @@
+# 本地安装用：从 PyPI sdist 拷贝的原生运行组件，不入库
+src/thsdk/libs/
+
+__pycache__/
+*.py[cod]
+*.egg-info/
+account.session
