@@ -1,5 +1,10 @@
-# 本地安装用：从 PyPI sdist 拷贝的原生运行组件，不入库
-src/thsdk/libs/
+# 原生运行组件：仅 windows/amd64/hq.dll 入库，其余平台由 .github/workflows/sync-thsdk.yml 同步时裁剪
+src/thsdk/libs/*
+!src/thsdk/libs/windows
+src/thsdk/libs/windows/*
+!src/thsdk/libs/windows/amd64
+src/thsdk/libs/windows/amd64/*
+!src/thsdk/libs/windows/amd64/hq.dll
 
 __pycache__/
 *.py[cod]

@@ -104,7 +104,7 @@ jobs:
           echo "Found: $THSDK_DIR"
           cp -r "$THSDK_DIR" src/
 
-      # ✅ 删除动态库
+      # ✅ 裁剪动态库：仅保留 windows/amd64/hq.dll，其余平台不入库以控制仓库体积
       - name: Remove dynamic libs
         run: |
           if [ -d "src/thsdk/libs" ]; then
@@ -112,7 +112,12 @@ jobs:
               -name "*.dll" -o \
               -name "*.so" -o \
               -name "*.dylib" \
-            \) -delete
+            \) ! -path "src/thsdk/libs/windows/amd64/hq.dll" -delete
+          fi
+
+          if [ ! -f "src/thsdk/libs/windows/amd64/hq.dll" ]; then
+            echo "❌ windows/amd64/hq.dll missing after sync - upstream layout changed?"
+            exit 1
           fi
 
       # ✅ 删除空目录
